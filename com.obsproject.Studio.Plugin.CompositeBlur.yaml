@@ -18,8 +18,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-composite-blur.git
-        tag: v1.5.1
-        commit: adaeef80f8216e0852e2dace66abb51606ad6373
+        tag: v1.5.2
+        commit: 160f7ad4d464e85e24894187244cf71a3913aea9
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
