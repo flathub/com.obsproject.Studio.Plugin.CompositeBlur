@@ -9,17 +9,18 @@ build-options:
   prefix: /app/plugins/CompositeBlur
 modules:
   - name: composite-blur
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DLINUX_PORTABLE=off
+    buildsystem: simple
+    build-commands:
+      - cmake -G Ninja -B build -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
+      - ninja -C build
+      - cmake --install build --component Legacy
     post-install:
-      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-composite-blur.git
-        tag: v1.5.1
-        commit: adaeef80f8216e0852e2dace66abb51606ad6373
+        tag: v1.6.1
+        commit: a84f97a772ac53510518826eae71ba19960b680b
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
