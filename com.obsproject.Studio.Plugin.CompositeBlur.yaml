@@ -2,7 +2,7 @@ id: com.obsproject.Studio.Plugin.CompositeBlur
 branch: stable
 runtime: com.obsproject.Studio
 runtime-version: stable
-sdk: org.kde.Sdk//6.6
+sdk: org.freedesktop.Sdk//26.08
 build-extension: true
 separate-locales: false
 build-options:
@@ -10,18 +10,24 @@ build-options:
 modules:
   - name: composite-blur
     buildsystem: cmake-ninja
+    builddir: true
+    no-make-install: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
-      - -DLINUX_PORTABLE=off
+      - -DCMAKE_INSTALL_LIBDIR=lib
+      - -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
+    build-commands:
+      - cmake --install . --component Modern
     post-install:
-      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-composite-blur.git
-        tag: v1.5.1
-        commit: adaeef80f8216e0852e2dace66abb51606ad6373
+        tag: v1.6.1
+        commit: 8483ccbf51ef633b59341904be02497a9b07dcef
         x-checker-data:
           type: git
+          is-main-source: true
           tag-pattern: ^v([\d.]+)
       - type: file
         path: com.obsproject.Studio.Plugin.CompositeBlur.metainfo.xml
