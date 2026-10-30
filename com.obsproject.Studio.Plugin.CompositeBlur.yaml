@@ -9,7 +9,8 @@ build-options:
   prefix: /app/plugins/CompositeBlur
 modules:
   - name: composite-blur
-     builddir: true
+    buildsystem: cmake-ninja
+    builddir: true
     no-make-install: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
